@@ -6,7 +6,8 @@ services:
       - "5000:5000"
 
   jenkins:
-    image: jenkins/jenkins:lts
+    build:
+      context: ./Jenkins
     ports:
       - "8080:8080"
       - "50000:50000"
