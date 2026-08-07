@@ -6,8 +6,7 @@ services:
       - "5000:5000"
 
   jenkins:
-    build:
-      context: ./Jenkins
+    build: ./Jenkins
     user: root
     ports:
       - "8080:8080"

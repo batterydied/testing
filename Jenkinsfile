@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKER_IMAGE = "flask-app"
+    }
+
     stages {
 
         stage('Checkout') {
@@ -11,18 +15,19 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh '''
-                    docker compose build
-                '''
+                dir('server') {
+                    sh 'docker compose build'
+                }
             }
         }
 
         stage('Deploy') {
             steps {
-                sh '''
-                    docker compose down
-                    docker compose up -d
-                '''
+                dir('server') {
+                    sh '''
+                        docker compose up -d --force-recreate flask
+                    '''
+                }
             }
         }
     }
@@ -31,7 +36,6 @@ pipeline {
         success {
             echo 'Deployment successful!'
         }
-
         failure {
             echo 'Deployment failed!'
         }
