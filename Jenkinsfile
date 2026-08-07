@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        DOCKER_IMAGE = "flask-app"
-    }
-
     stages {
 
         stage('Checkout') {
